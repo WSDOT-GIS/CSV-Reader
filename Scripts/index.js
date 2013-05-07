@@ -1,4 +1,5 @@
-﻿/*global alert*/
+﻿/// <reference path="csv.js" />
+/*global alert*/
 /*jslint browser:true*/
 (function () {
 	"use strict";
@@ -9,9 +10,26 @@
 		return;
 	}
 
+	////function parseCsv(/*String*/ csv, separator, delimiter) {
+	////	var linesRe = /^.+$/mg;
+
+	////	// Set default values if not provided.
+	////	if (!separator) {
+	////		separator = ",";
+	////	}
+	////	if (!delimiter) {
+	////		delimiter = '"';
+	////	}
+
+	////	var match = csv.match(linesRe);
+	////	console.debug(match);
+	////}
+
 	function handleFileLoad(evt) {
 		var text = evt.target.result;
-		window.console.log(text);
+		// window.console.log(text);
+		var csv = csvToArray(text, ',');
+		console.log(csv);
 	}
 
 	function handleFileSelect(evt) {

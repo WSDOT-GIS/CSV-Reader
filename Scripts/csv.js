@@ -1,6 +1,8 @@
-﻿/*jslint vars:true, browser:true*/
-// from http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
-(function () {
+﻿// from http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
+/*global define*/
+/*jslint vars:true, browser:true*/
+define(function () {
+
 	"use strict";
 	// This will parse a delimited string into an array of
 	// arrays. The default delimiter is the comma, but this
@@ -91,5 +93,8 @@
 		return (arrData);
 	}
 
-	window.csvToArray = csvToArray;
-}());
+	return {
+		toArray: csvToArray
+	};
+
+});

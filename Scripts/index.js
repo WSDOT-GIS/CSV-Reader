@@ -1,7 +1,7 @@
 ﻿/// <reference path="csv.js" />
-/*global alert, csvToArray */
+/*global require */
 /*jslint browser:true*/
-(function () {
+require(["csv"], function (CSV) {
 	"use strict";
 
 	// Check for the various File API support.
@@ -11,42 +11,51 @@
 	}
 
 	function handleFileLoad(evt) {
-		var text, csv, table, row, i, il, j, jl, tableElement;
+		var text, csv, table, row, i, il, j, jl, tableElement, tableId;
+
+		tableId = "csvTable";
+		tableElement = document.getElementById(tableId);
+		if (tableElement) {
+			document.body.removeChild(tableElement);
+		}
+
+
 		text = evt.target.result;
-		csv = csvToArray(text, ',');
-		
-		table = [];
 
-		for (i = 0, il = csv.length; i < il; i += 1) {
-			row = csv[i];
-			if (i === 0) {
-				table.push("<thead>");
-			} else if (i === 1) {
-				table.push("<tbody>");
+		if (text) {
+
+			csv = CSV.toArray(text, ',');
+
+			table = [];
+
+			for (i = 0, il = csv.length; i < il; i += 1) {
+				row = csv[i];
+				if (i === 0) {
+					table.push("<thead>");
+				} else if (i === 1) {
+					table.push("<tbody>");
+				}
+
+				table.push("<tr>");
+				for (j = 0, jl = row.length; j < jl; j += 1) {
+					table.push(i === 0 ? "<th>" : "<td>", row[j] || "", i === 0 ? "</th>" : "</td>");
+				}
+				table.push("</tr>");
+
+				if (i === 0) {
+					table.push("</thead>");
+				} else if (i === 1) {
+					table.push("</tbody>");
+				}
 			}
 
-			table.push("<tr>");
-			for (j = 0, jl = row.length; j < jl; j += 1) {
-				table.push(i === 0 ? "<th>" : "<td>", row[j] || "", i === 0 ? "</th>" : "</td>");
-			}
-			table.push("</tr>");
 
-			if (i === 0) {
-				table.push("</thead>");
-			} else if (i === 1) {
-				table.push("</tbody>");
-			}
+			tableElement = document.createElement("table");
+			tableElement.id = tableId;
+			tableElement.innerHTML = table.join("");
+
+			document.body.appendChild(tableElement);
 		}
-
-		tableElement = document.getElementsByTagName("table");
-		if (tableElement && tableElement.length) {
-			document.body.removeChild(tableElement[0]);
-		}
-
-		tableElement = document.createElement("table");
-		tableElement.innerHTML = table.join("");
-
-		document.body.appendChild(tableElement);
 	}
 
 	function handleFileSelect(evt) {
@@ -60,4 +69,4 @@
 	}
 
 	document.getElementById('file').addEventListener('change', handleFileSelect, false);
-}());
+});

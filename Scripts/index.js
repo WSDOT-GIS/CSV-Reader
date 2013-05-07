@@ -1,5 +1,5 @@
 ﻿/// <reference path="csv.js" />
-/*global alert*/
+/*global alert, csvToArray */
 /*jslint browser:true*/
 (function () {
 	"use strict";
@@ -10,26 +10,43 @@
 		return;
 	}
 
-	////function parseCsv(/*String*/ csv, separator, delimiter) {
-	////	var linesRe = /^.+$/mg;
-
-	////	// Set default values if not provided.
-	////	if (!separator) {
-	////		separator = ",";
-	////	}
-	////	if (!delimiter) {
-	////		delimiter = '"';
-	////	}
-
-	////	var match = csv.match(linesRe);
-	////	console.debug(match);
-	////}
-
 	function handleFileLoad(evt) {
-		var text = evt.target.result;
-		// window.console.log(text);
-		var csv = csvToArray(text, ',');
-		console.log(csv);
+		var text, csv, table, row, i, il, j, jl, tableElement;
+		text = evt.target.result;
+		csv = csvToArray(text, ',');
+		
+		table = [];
+
+		for (i = 0, il = csv.length; i < il; i += 1) {
+			row = csv[i];
+			if (i === 0) {
+				table.push("<thead>");
+			} else if (i === 1) {
+				table.push("<tbody>");
+			}
+
+			table.push("<tr>");
+			for (j = 0, jl = row.length; j < jl; j += 1) {
+				table.push(i === 0 ? "<th>" : "<td>", row[j] || "", i === 0 ? "</th>" : "</td>");
+			}
+			table.push("</tr>");
+
+			if (i === 0) {
+				table.push("</thead>");
+			} else if (i === 1) {
+				table.push("</tbody>");
+			}
+		}
+
+		tableElement = document.getElementsByTagName("table");
+		if (tableElement && tableElement.length) {
+			document.body.removeChild(tableElement[0]);
+		}
+
+		tableElement = document.createElement("table");
+		tableElement.innerHTML = table.join("");
+
+		document.body.appendChild(tableElement);
 	}
 
 	function handleFileSelect(evt) {

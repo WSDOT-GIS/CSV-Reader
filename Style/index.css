@@ -1,0 +1,14 @@
+﻿body {
+	font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif;
+	font-size: 1em;
+	color: #24242a;
+}
+
+table {
+	border: 1px solid #24242a;
+	border-collapse: collapse;
+}
+
+td {
+	border: 1px solid #24242a;
+}

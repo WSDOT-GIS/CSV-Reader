@@ -41,6 +41,7 @@
     <Content Include="index.html" />
     <Content Include="Scripts\csv.js" />
     <Content Include="Scripts\index.js" />
+    <Content Include="Style\index.css" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

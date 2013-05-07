@@ -10,18 +10,8 @@ require(["csv"], function (CSV) {
 		return;
 	}
 
-	function handleFileLoad(evt) {
-		var text, csv, table, row, i, il, j, jl, tableElement, tableId;
-
-		tableId = "csvTable";
-		tableElement = document.getElementById(tableId);
-		if (tableElement) {
-			document.body.removeChild(tableElement);
-		}
-
-
-		text = evt.target.result;
-
+	function csvToTextTable(/*String*/ text) {
+		var csv, table, row, i, il, j, jl, tableElement;
 		if (text) {
 
 			csv = CSV.toArray(text, ',');
@@ -51,9 +41,27 @@ require(["csv"], function (CSV) {
 
 
 			tableElement = document.createElement("table");
-			tableElement.id = tableId;
 			tableElement.innerHTML = table.join("");
+		}
+		return tableElement;
+	}
+	
 
+	function handleFileLoad(evt) {
+		var text, tableElement, tableId;
+
+		tableId = "csvTable";
+		tableElement = document.getElementById(tableId);
+		if (tableElement) {
+			document.body.removeChild(tableElement);
+		}
+
+
+		text = evt.target.result;
+
+		if (text) {
+			tableElement = csvToTextTable(text);
+			tableElement.id = tableId;
 			document.body.appendChild(tableElement);
 		}
 	}

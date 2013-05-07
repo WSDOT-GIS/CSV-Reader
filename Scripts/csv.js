@@ -1,6 +1,7 @@
-﻿// from http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
+﻿/*jslint vars:true, browser:true*/
+// from http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
 (function () {
-
+	"use strict";
 	// This will parse a delimited string into an array of
 	// arrays. The default delimiter is the comma, but this
 	// can be overriden in the second argument.
@@ -33,13 +34,16 @@
 		// matching groups.
 		var arrMatches = null;
 
+		var strMatchedDelimiter, strMatchedValue;
+
+		arrMatches = objPattern.exec(strData);
 
 		// Keep looping over the regular expression matches
 		// until we can no longer find a match.
-		while (arrMatches = objPattern.exec(strData)) {
+		while (arrMatches) {
 
 			// Get the delimiter that was found.
-			var strMatchedDelimiter = arrMatches[1];
+			strMatchedDelimiter = arrMatches[1];
 
 			// Check to see if the given delimiter has a length
 			// (is not the start of string) and if it matches
@@ -47,7 +51,7 @@
 			// that this delimiter is a row delimiter.
 			if (
 				strMatchedDelimiter.length &&
-				(strMatchedDelimiter != strDelimiter)
+				(strMatchedDelimiter !== strDelimiter)
 				) {
 
 				// Since we have reached a new row of data,
@@ -64,7 +68,7 @@
 
 				// We found a quoted value. When we capture
 				// this value, unescape any double quotes.
-				var strMatchedValue = arrMatches[2].replace(
+				strMatchedValue = arrMatches[2].replace(
 					new RegExp("\"\"", "g"),
 					"\""
 					);
@@ -72,7 +76,7 @@
 			} else {
 
 				// We found a non-quoted value.
-				var strMatchedValue = arrMatches[3];
+				strMatchedValue = arrMatches[3];
 
 			}
 
@@ -80,6 +84,7 @@
 			// Now that we have our value string, let's add
 			// it to the data array.
 			arrData[arrData.length - 1].push(strMatchedValue);
+			arrMatches = objPattern.exec(strData);
 		}
 
 		// Return the parsed data.

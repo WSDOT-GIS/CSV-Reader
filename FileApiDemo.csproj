@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="index.html" />
+    <Content Include="Scripts\csv.js" />
     <Content Include="Scripts\index.js" />
   </ItemGroup>
   <ItemGroup>

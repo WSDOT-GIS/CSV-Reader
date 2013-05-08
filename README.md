@@ -2,6 +2,8 @@
 
 This is a sample appliation that reads a CSV table file and displays its contents as an HTML table.
 
+[Try the application](http://wsdot-gis.github.io/CSV-Reader/)
+
 ## Acknowledgements ##
 
 * [CSV Parsing code from StackOverflow] by [Kirtan]

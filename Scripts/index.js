@@ -10,41 +10,7 @@ require(["csv"], function (CSV) {
 		return;
 	}
 
-	function csvToTextTable(/*String*/ text) {
-		var csv, table, row, i, il, j, jl, tableElement;
-		if (text) {
 
-			csv = CSV.toArray(text, ',');
-
-			table = [];
-
-			for (i = 0, il = csv.length; i < il; i += 1) {
-				row = csv[i];
-				if (i === 0) {
-					table.push("<thead>");
-				} else if (i === 1) {
-					table.push("<tbody>");
-				}
-
-				table.push("<tr>");
-				for (j = 0, jl = row.length; j < jl; j += 1) {
-					table.push(i === 0 ? "<th>" : "<td>", row[j] || "", i === 0 ? "</th>" : "</td>");
-				}
-				table.push("</tr>");
-
-				if (i === 0) {
-					table.push("</thead>");
-				} else if (i === 1) {
-					table.push("</tbody>");
-				}
-			}
-
-
-			tableElement = document.createElement("table");
-			tableElement.innerHTML = table.join("");
-		}
-		return tableElement;
-	}
 	
 
 	function handleFileLoad(evt) {
@@ -56,11 +22,10 @@ require(["csv"], function (CSV) {
 			document.body.removeChild(tableElement);
 		}
 
-
 		text = evt.target.result;
 
 		if (text) {
-			tableElement = csvToTextTable(text);
+			tableElement = CSV.toHtmlTable(text);
 			tableElement.id = tableId;
 			document.body.appendChild(tableElement);
 		}

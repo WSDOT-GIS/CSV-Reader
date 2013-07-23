@@ -41,17 +41,16 @@
     <Content Include="index.html" />
     <Content Include="Scripts\csv.js" />
     <Content Include="Scripts\index.js" />
-    <Content Include="Scripts\require.js" />
     <Content Include="Style\index.css" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="README.md" />
+    <Content Include="Unfinished alternate CSV parse method.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

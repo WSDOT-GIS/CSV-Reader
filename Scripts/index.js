@@ -10,9 +10,6 @@ require(["csv"], function (CSV) {
 		return;
 	}
 
-
-	
-
 	function handleFileLoad(evt) {
 		var text, tableElement, tableId;
 

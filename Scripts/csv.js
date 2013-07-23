@@ -99,6 +99,8 @@ define(function () {
 		for (i = 0, l = headers.length; i < l; i += 1) {
 			o[headers[i]] = data.length > i ? data[i] : null;
 		}
+
+		return o;
 	}
 
 	/**
@@ -141,11 +143,13 @@ define(function () {
 					objects.push(createObjectFromData(headers, data));
 				}
 				data = []; // data.push([]);
+			} else if (!data) {
+				data = [];
 			}
 
 			// Now that we have our value string, let's add
 			// it to the data array.
-			data[data.length - 1].push(valueInfo.value);
+			data.push(valueInfo.value);
 			match = re.exec(csvData);
 		}
 

@@ -4,6 +4,47 @@ define(["./csv"], function (CSV) {
 
 	"use strict";
 
+	/**
+	@param {Array} An array of objects.  Each object in the array should have the same field names.
+	*/
+	function objectsToHtmlTable(objects) {
+		var headers, row, table, tr, td, i, l, header, j, jl;
+
+		table = document.createElement("table");
+
+		for (i = 0, l = objects.length; i < l; i += 1) {
+			row = objects[i];
+			// If this is the first time through, create an array of headers.
+			if (i === 0) {
+				headers = [];
+				tr = document.createElement("tr");
+				for (header in row) {
+					if (row.hasOwnProperty(header)) {
+						headers.push(header);
+						td = document.createElement("th");
+						td.textContent = header;
+						tr.appendChild(td);
+					}
+				}
+				table.appendChild(tr);
+			}
+
+			tr = document.createElement("tr");
+
+			// Loop through each of the headers.  
+			for (j = 0, jl = headers.length; j < jl; j += 1) {
+				header = headers[j];
+				td = document.createElement("td");
+				td.textContent = row[header] || "";
+				tr.appendChild(td);
+			}
+
+			table.appendChild(tr);
+		}
+
+		return table;
+	}
+
 	/**Converts a CSV string into an HTML table.
 	@param {String} text A string of CSV text.
 	@returns {Element} HTML table element.
@@ -46,15 +87,11 @@ define(["./csv"], function (CSV) {
 		return tableElement;
 	}
 
-	///**
-	//@param {Array} An array of objects.  Each object in the array should have the same field names.
-	//*/
-	//function objectsToHtmlTable(objects) {
 
-	//}
 
 	return {
-		csvToHtmlTable: csvToHtmlTable
+		csvToHtmlTable: csvToHtmlTable,
+		objectsToHtmlTable: objectsToHtmlTable
 	};
 
 });

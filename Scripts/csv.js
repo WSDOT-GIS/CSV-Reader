@@ -98,42 +98,6 @@ define(function () {
 		return (arrData);
 	}
 
-	// Alternate CSV parsing method.  It still needs work, as it simply skips blank entries, resulting in subsequent items being
-	// placed in the wrong columns.
-	/////** Converts a line from a CSV file into an array of strings.
-	////@returns {String[]}
-	////*/
-	////function csvLineToArray(/*String*/ line) {
-	////	var output = [], elementRe = /(?:("(?:[^"]|"{2})+"))|([^,]+)/gi, match, i, l, textContent = /^("?)(.+)\1$/i, element;
-	////	elementRe = /(?:("(?:[^"]|"{2})+"))|([^,]+)|(,{2})/gi
-	////	match = line.match(elementRe);
-
-	////	for (i = 0, l = match.length; i < l; i += 1) {
-	////		// Remove surrounding quotes (if applicable).
-	////		element = match[i].match(textContent)[2];
-	////		// Replace escapted quotes.
-	////		element = element.replace(/"{2}/g, '"');
-	////		output.push(element);
-	////	}
-
-	////	return output;
-	////}
-
-	/////** Converts a CSV table string into an array of arrays.
-	////* @returns {String[][]}
-	////*/
-	////function csvToArray(/*String*/ csv) {
-	////	var lineRe = /^.+$/gim, lines, output = [], i, l;
-	////	/*string[]*/ lines = csv.match(lineRe);
-
-	////	for (i = 0, l = lines.length; i < l; i += 1) {
-	////		output.push(csvLineToArray(lines[i]));
-	////	}
-
-	////	return output;
-		
-	////}
-
 	/**Converts a CSV string into an HTML table.
 	@param {String} text A string of CSV text.
 	@returns {Element} HTML table element.

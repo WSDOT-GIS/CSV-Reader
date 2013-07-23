@@ -1,7 +1,7 @@
 ﻿/// <reference path="csv.js" />
 /*global require */
 /*jslint browser:true*/
-require(["csv"], function (CSV) {
+require(["csvHtml"], function (CSV) {
 	"use strict";
 
 	// Check for the various File API support.
@@ -22,7 +22,7 @@ require(["csv"], function (CSV) {
 		text = evt.target.result;
 
 		if (text) {
-			tableElement = CSV.toHtmlTable(text);
+			tableElement = CSV.csvToHtmlTable(text);
 			tableElement.id = tableId;
 			document.body.appendChild(tableElement);
 		}

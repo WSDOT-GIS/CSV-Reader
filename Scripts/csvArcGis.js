@@ -1,4 +1,6 @@
-﻿require("./csv", function (CSV) {
+﻿/*global require*/
+require("./csv", function (CSV) {
+	"use strict";
 
 	/** Converts a value into a number (if it is not already).
 	*/
@@ -27,7 +29,7 @@
 	@param {String} [mName]
 	*/
 	function objectToPointFeature(object, delimiter, xName, yName, spatialReference, zName, mName) {
-		var feature;
+		var feature, name;
 
 		feature = {
 			attributes: {},
@@ -36,7 +38,7 @@
 		};
 
 
-		for (var name in object) {
+		for (name in object) {
 
 			if (object.hasOwnProperty(name)) {
 				if (name === xName) {

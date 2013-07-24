@@ -1,5 +1,5 @@
 ﻿/*global define*/
-/*jslint regexp:true*/
+/*jslint white:true,regexp:true*/
 define(function () {
 
 	"use strict";
@@ -108,7 +108,7 @@ define(function () {
 	can be overriden in the second argument.
 	@param {String} csvData The CSV data
 	@param {String} [delimiter] The CSV field delimiter. Defaults to comma if omitted.
-	@returns {String[][]}
+	@returns {Array[]} An array of objects. Each object will have the same properties.
 	@author http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
 	*/
 	function csvToObjects(csvData, delimiter) {
@@ -164,9 +164,11 @@ define(function () {
 		var lastRow;
 		if (array && array.length) {
 			lastRow = array[array.length - 1];
-			if ((!lastRow.length) || (lastRow.length === 1 && lastRow[0] == null)) { // The == (instead of ===) is intentional.
+			/*jslint eqeq:true*/
+			if ((!lastRow.length) || (lastRow.length === 1 && lastRow[0] == null)) { // The == (instead of ===) is intentional, checking for null AND undefined.
 				array.pop();
 			}
+			/*jslint eqeq:false*/
 		}
 	}
 

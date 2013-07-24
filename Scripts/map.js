@@ -24,6 +24,8 @@ require(["csv/csvArcGis", "esri/map"], function (csvArcGis, Map) {
 
 		features = csvArcGis.csvToPointFeatures(text);
 
+		console.log(features);
+
 	}
 
 	function handleFileSelect(evt) {

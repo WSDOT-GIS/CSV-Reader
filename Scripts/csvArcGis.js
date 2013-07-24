@@ -1,6 +1,6 @@
 ﻿/*global require*/
 /*jslint white:true*/
-require("./csv", function (CSV) {
+define(["csv"], function (CSV) {
 	"use strict";
 
 	/** Converts a value into a number (if it is not already).

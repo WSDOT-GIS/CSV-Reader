@@ -1,17 +1,19 @@
 ﻿/*global require*/
+/*jslint browser:true*/
 require([
 	"csv/csvArcGis",
 	"esri/map",
 	"esri/symbols/SimpleMarkerSymbol",
-	"esri/renderers/SimpleRenderer"
-], function (csvArcGis, Map, SimpleMarkerSymbol, SimpleRenderer) {
+	"esri/renderers/SimpleRenderer",
+	"esri/InfoTemplate"
+], function (csvArcGis, Map, SimpleMarkerSymbol, SimpleRenderer, InfoTemplate) {
 	"use strict";
 
 	var map;
 
 	// Check for the various File API support.
 	if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
-		alert('The File APIs are not fully supported in this browser.');
+		window.alert('The File APIs are not fully supported in this browser.');
 		return;
 	}
 
@@ -23,7 +25,7 @@ require([
 	});
 
 	function handleFileLoad(evt) {
-		var text, graphicsLayer, symbol, renderer;
+		var text, graphicsLayer, symbol, renderer, infoTemplate;
 
 		text = evt.target.result;
 
@@ -33,8 +35,10 @@ require([
 
 		symbol = new SimpleMarkerSymbol();
 		renderer = new SimpleRenderer(symbol);
+		infoTemplate = new InfoTemplate("Imported Feature", "${*}");
 
 		graphicsLayer.setRenderer(renderer);
+		graphicsLayer.setInfoTemplate(infoTemplate);
 
 		map.addLayer(graphicsLayer);
 

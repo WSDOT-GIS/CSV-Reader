@@ -29,13 +29,16 @@ require(["csvHtml"], function (CSV) {
 	}
 
 	function handleFileSelect(evt) {
-		var file, files, reader;
+		var file, files, reader, i, l;
 		files = evt.target.files; // FileList object
-		file = files[0];
-		reader = new window.FileReader();
-		reader.onload = handleFileLoad;
 
-		reader.readAsText(file);
+		for (var i = 0, l = files.length; i < l; i += 1) {
+			file = files[i];
+			reader = new window.FileReader();
+			reader.addEventListener("load", handleFileLoad);
+			reader.readAsText(file);
+		}
+
 	}
 
 	document.getElementById('file').addEventListener('change', handleFileSelect, false);

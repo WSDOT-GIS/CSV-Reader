@@ -1,6 +1,10 @@
-﻿/*global require*/
+﻿/*global define*/
 /*jslint white:true*/
-define(["csv"], function (CSV) {
+define([
+	"csv",
+	"esri/graphic",
+	"esri/layers/GraphicsLayer"
+], function (CSV, Graphic, GraphicsLayer) {
 	"use strict";
 
 	/** Converts a value into a number (if it is not already).
@@ -22,14 +26,14 @@ define(["csv"], function (CSV) {
 
 	/** Converts an object into a point feature.
 	@param {Object} object
-	@param {String} delimiter
 	@param {String} xName
 	@param {String} yName
 	@param {Object} [spatialReference]
 	@param {String} [zName]
 	@param {String} [mName]
+	@returns {esri/Graphic}
 	*/
-	function objectToPointFeature(object, delimiter, xName, yName, spatialReference, zName, mName) {
+	function objectToPointFeature(object, xName, yName, spatialReference, zName, mName) {
 		var feature, name;
 
 		feature = {
@@ -39,6 +43,7 @@ define(["csv"], function (CSV) {
 		};
 
 
+		// Loop through all of the properties of the object.
 		for (name in object) {
 
 			if (object.hasOwnProperty(name)) {
@@ -61,6 +66,8 @@ define(["csv"], function (CSV) {
 		if (spatialReference) {
 			feature.geometry.spatialReference = spatialReference;
 		}
+
+		feature = new Graphic(feature);
 
 		return feature;
 	}
@@ -107,10 +114,11 @@ define(["csv"], function (CSV) {
 		@param {Object} [spatialReference] For values, see http://resources.arcgis.com/en/help/arcgis-rest-api/#/Geometry_Objects/02r3000000n1000000/
 		@param {String} [zName]
 		@param {String} [mName]
+		@param {Function} [perObjectFunction] A function that is called for each object. This function should take a single parameter: the object parsed from a row of CSV data.
 		@return {Array}
 		*/
-		csvToPointFeatures: function (csv, delimiter, xName, yName, spatialReference, zName, mName) {
-			var objects, attributes, point, output = [], i, l, o, fieldNames;
+		csvToPointGraphics: function (csv, delimiter, xName, yName, spatialReference, zName, mName, perObjectFunction) {
+			var objects, output = [], i, l, o, fieldNames;
 			objects = CSV.toObjects(csv, delimiter);
 
 			// If xName or yName were not provided, determine those values.
@@ -125,11 +133,36 @@ define(["csv"], function (CSV) {
 			}
 
 			for (i = 0, l = objects.length; i < l; i += 1) {
-				o = objectToPointFeature(objects[i], delimiter, xName, yName, spatialReference, zName, mName);
+				o = objectToPointFeature(objects[i], xName, yName, spatialReference, zName, mName);
+				if (typeof perObjectFunction === "function") {
+					perObjectFunction(o);
+				}
 				output.push(o);
 			}
 
 			return output;
+		},
+		/** Converts a CSV string into an array of point feature objects. (http://resources.arcgis.com/en/help/arcgis-rest-api/#/Feature_Object/02r3000000n8000000/)
+		@param {String} csv
+		@param {String} delimiter
+		@param {string} [xName] The field name that provides the X values. This can be omitted as long as the X field is named "X", "Long" or "Longitude" (case-insensitive).
+		@param {string} [yName] The field name that provides the Y values.This can be omitted as long as the Y field is named "Y", "Lat" or "Latitude" (case-insensitive).
+		@param {Object} [spatialReference] For values, see http://resources.arcgis.com/en/help/arcgis-rest-api/#/Geometry_Objects/02r3000000n1000000/
+		@param {String} [zName]
+		@param {String} [mName]
+		@param {Object} [graphicsLayerOptions] Options to pass to the GraphicsLayer constructor. See https://developers.arcgis.com/en/javascript/jsapi/graphicslayer-amd.html#graphicslayer2
+		@return {esri/layers/GraphicsLayer}
+		*/
+		csvToGraphicsLayer: function (csv, delimiter, xName, yName, spatialReference, zName, mName, graphicsLayerOptions) {
+			var graphicsLayer;
+
+			graphicsLayer = new GraphicsLayer(graphicsLayerOptions);
+
+			this.csvToPointGraphics(csv, delimiter, xName, yName, spatialReference, zName, mName, function (graphic) {
+				graphicsLayer.add(graphic);
+			});
+
+			return graphicsLayer;
 		}
 	};
 });

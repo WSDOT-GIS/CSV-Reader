@@ -22,7 +22,9 @@ require(["csv/csvArcGis", "esri/map"], function (csvArcGis, Map) {
 
 		text = evt.target.result;
 
-		features = csvArcGis.csvToPointFeatures(text);
+		features = csvArcGis.csvToGraphicsLayer(text, ',', null, null, null, null, null, {
+			id: "imported_from_csv"
+		});
 
 		console.log(features);
 

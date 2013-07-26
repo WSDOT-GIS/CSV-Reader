@@ -1,5 +1,10 @@
 ﻿/*global require*/
-require(["csv/csvArcGis", "esri/map"], function (csvArcGis, Map) {
+require([
+	"csv/csvArcGis",
+	"esri/map",
+	"esri/symbols/SimpleMarkerSymbol",
+	"esri/renderers/SimpleRenderer"
+], function (csvArcGis, Map, SimpleMarkerSymbol, SimpleRenderer) {
 	"use strict";
 
 	var map;
@@ -18,15 +23,20 @@ require(["csv/csvArcGis", "esri/map"], function (csvArcGis, Map) {
 	});
 
 	function handleFileLoad(evt) {
-		var text, features;
+		var text, graphicsLayer, symbol, renderer;
 
 		text = evt.target.result;
 
-		features = csvArcGis.csvToGraphicsLayer(text, ',', null, null, null, null, null, {
+		graphicsLayer = csvArcGis.csvToGraphicsLayer(text, ',', null, null, null, null, null, {
 			id: "imported_from_csv"
 		});
 
-		console.log(features);
+		symbol = new SimpleMarkerSymbol();
+		renderer = new SimpleRenderer(symbol);
+
+		graphicsLayer.setRenderer(renderer);
+
+		map.addLayer(graphicsLayer);
 
 	}
 

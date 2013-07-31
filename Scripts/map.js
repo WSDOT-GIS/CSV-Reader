@@ -2,14 +2,15 @@
 /*jslint browser:true*/
 require([
 	"csv/csvArcGis",
+	"csv/layerList",
 	"esri/map",
 	"esri/symbols/SimpleMarkerSymbol",
 	"esri/renderers/SimpleRenderer",
 	"esri/InfoTemplate"
-], function (csvArcGis, Map, SimpleMarkerSymbol, SimpleRenderer, InfoTemplate) {
+], function (csvArcGis, LayerList, Map, SimpleMarkerSymbol, SimpleRenderer, InfoTemplate) {
 	"use strict";
 
-	var map;
+	var map, layerList;
 
 	// Check for the various File API support.
 	if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
@@ -24,13 +25,17 @@ require([
 		showAttribution: true
 	});
 
+	layerList = new LayerList(map, "layerList");
+
 	function handleFileLoad(evt) {
 		var text, graphicsLayer, symbol, renderer, infoTemplate;
+
+		console.debug(evt);
 
 		text = evt.target.result;
 
 		graphicsLayer = csvArcGis.csvToGraphicsLayer(text, ',', null, null, null, null, null, {
-			id: "imported_from_csv"
+			id: ["imported_from_csv", Date.now()].join("_")
 		});
 
 		symbol = new SimpleMarkerSymbol();

@@ -18,6 +18,13 @@
 			top: 0;
 			z-index: 1;
 		}
+
+		#layerList {
+			position:absolute;
+			left: 0;
+			bottom: 0;
+			z-index: 1;
+		}
 	</style>
 
 </head>
@@ -27,6 +34,7 @@
 		<form onsubmit="return false;">
 			<input type="file" id="file" name="file" accept=".csv,text/plain" multiple="multiple" />
 		</form>
+		<div id="layerList"></div>
 	</div>
 	<script>
 		var dojoConfig = {

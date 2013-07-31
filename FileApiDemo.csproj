@@ -43,6 +43,7 @@
     <Content Include="Scripts\csv.js" />
     <Content Include="Scripts\csvArcGis.js" />
     <Content Include="Scripts\csvHtml.js" />
+    <Content Include="Scripts\layerList.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\map.js" />
     <Content Include="Style\index.css" />

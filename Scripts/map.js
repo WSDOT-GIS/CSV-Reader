@@ -38,12 +38,10 @@ require([
 	function handleFileLoad(evt) {
 		var text, graphicsLayer, symbol, renderer, infoTemplate, symbolStyles = ["circle", "square", "cross", "x", "diamond"];
 
-		console.debug(this, arguments);
-
 		text = evt.target.result;
 
 		graphicsLayer = csvArcGis.csvToGraphicsLayer(text, ',', null, null, null, null, null, {
-			id: ["imported_from_csv", Date.now()].join("_")
+			id: evt.target.file.name
 		});
 
 		symbol = new SimpleMarkerSymbol();
@@ -65,6 +63,8 @@ require([
 		files = evt.target.files; // FileList object
 		file = files[0];
 		reader = new window.FileReader();
+		// Add the file as a property of the reader so its filename can be used as a layer id.
+		reader.file = file;
 		reader.onload = handleFileLoad;
 
 		reader.readAsText(file);

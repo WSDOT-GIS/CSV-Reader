@@ -12,6 +12,14 @@ require([
 
 	var map, layerList;
 
+	/** Returns a random integer between min and max
+	Using Math.round() will give you a non-uniform distribution!
+	Function came from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+	*/
+	function getRandomInt(/**{Number}*/ min, /**{Number}*/ max) {
+		return Math.floor(Math.random() * (max - min + 1) + min);
+	}
+
 	// Check for the various File API support.
 	if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
 		window.alert('The File APIs are not fully supported in this browser.');
@@ -28,9 +36,9 @@ require([
 	layerList = new LayerList(map, "layerList");
 
 	function handleFileLoad(evt) {
-		var text, graphicsLayer, symbol, renderer, infoTemplate;
+		var text, graphicsLayer, symbol, renderer, infoTemplate, symbolStyles = ["circle", "square", "cross", "x", "diamond"];
 
-		console.debug(evt);
+		console.debug(this, arguments);
 
 		text = evt.target.result;
 
@@ -39,6 +47,9 @@ require([
 		});
 
 		symbol = new SimpleMarkerSymbol();
+		// Set the symbol to a randomly generated color.
+		symbol.setColor(String(getRandomInt(0, 0xffffff)));
+		symbol.setStyle(symbolStyles[getRandomInt(0, symbolStyles.length)]);
 		renderer = new SimpleRenderer(symbol);
 		infoTemplate = new InfoTemplate("Imported Feature", "${*}");
 

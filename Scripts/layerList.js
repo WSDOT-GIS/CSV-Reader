@@ -42,7 +42,7 @@ define(["dojo/_base/declare", "dojo/Evented"], function (declare, Evented) {
 			if (!domNode) {
 				this.domNode = document.createElement("div");
 			} else if (typeof domNode === "string") {
-				domNode = document.getElementById(domNode)
+				domNode = document.getElementById(domNode);
 				this.domNode = domNode;
 			} else if (domNode instanceof window.HTMLElement) {
 				this.domNode = domNode;

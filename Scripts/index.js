@@ -1,7 +1,7 @@
 ﻿/// <reference path="csv.js" />
 /*global require */
 /*jslint browser:true*/
-require(["csv"], function (CSV) {
+require(["csvHtml"], function (CSV) {
 	"use strict";
 
 	// Check for the various File API support.
@@ -9,9 +9,6 @@ require(["csv"], function (CSV) {
 		alert('The File APIs are not fully supported in this browser.');
 		return;
 	}
-
-
-	
 
 	function handleFileLoad(evt) {
 		var text, tableElement, tableId;
@@ -25,20 +22,23 @@ require(["csv"], function (CSV) {
 		text = evt.target.result;
 
 		if (text) {
-			tableElement = CSV.toHtmlTable(text);
+			tableElement = CSV.csvToHtmlTable(text);
 			tableElement.id = tableId;
 			document.body.appendChild(tableElement);
 		}
 	}
 
 	function handleFileSelect(evt) {
-		var file, files, reader;
+		var file, files, reader, i, l;
 		files = evt.target.files; // FileList object
-		file = files[0];
-		reader = new window.FileReader();
-		reader.onload = handleFileLoad;
 
-		reader.readAsText(file);
+		for (var i = 0, l = files.length; i < l; i += 1) {
+			file = files[i];
+			reader = new window.FileReader();
+			reader.addEventListener("load", handleFileLoad);
+			reader.readAsText(file);
+		}
+
 	}
 
 	document.getElementById('file').addEventListener('change', handleFileSelect, false);

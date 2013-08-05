@@ -46,11 +46,13 @@
 			var dojoConfig = {
 				async: true,
 				parseOnLoad: true,
-				packages: {
+				packages: [
+					{
 					name: "csv",
 					location: url + "Scripts",
 					main: "csv"
-				}
+					}
+				]
 			};
 
 			window.dojoConfig = dojoConfig;

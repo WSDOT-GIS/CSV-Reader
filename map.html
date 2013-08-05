@@ -37,16 +37,24 @@
 		<div id="layerList"></div>
 	</div>
 	<script>
-		var dojoConfig = {
-			async: true,
-			packages: [
-				{
+		(function () {
+			"use strict";
+			var url, re = /\/[^\/]+$/;
+
+			url = re.test(location.href) ? location.href.replace(re, "/") : location.href;
+
+			var dojoConfig = {
+				async: true,
+				parseOnLoad: true,
+				packages: {
 					name: "csv",
-					location: "/./Scripts",
+					location: url + "Scripts",
 					main: "csv"
 				}
-			]
-		};
+			};
+
+			window.dojoConfig = dojoConfig;
+		}());
 	</script>
 	<script src="//serverapi.arcgisonline.com/jsapi/arcgis/3.5compact/"></script>
 	<script src="Scripts/map.js"></script>

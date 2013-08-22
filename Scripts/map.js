@@ -2,7 +2,7 @@
 /*jslint browser:true*/
 require([
 	"csv/csvArcGis",
-	"csv/layerList",
+	"ui/layerList",
 	"esri/map",
 	"esri/symbols/SimpleMarkerSymbol",
 	"esri/renderers/SimpleRenderer",

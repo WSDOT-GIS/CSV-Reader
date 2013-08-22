@@ -40,12 +40,12 @@
   <ItemGroup>
     <Content Include="index.html" />
     <Content Include="map.html" />
-    <Content Include="Scripts\csv.js" />
-    <Content Include="Scripts\csvArcGis.js" />
-    <Content Include="Scripts\csvHtml.js" />
-    <Content Include="Scripts\layerList.js" />
+    <Content Include="Scripts\csv\csvArcGis.js" />
+    <Content Include="Scripts\csv\csvHtml.js" />
+    <Content Include="Scripts\csv\main.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\map.js" />
+    <Content Include="Scripts\ui\layerList.js" />
     <Content Include="Style\index.css" />
   </ItemGroup>
   <ItemGroup>

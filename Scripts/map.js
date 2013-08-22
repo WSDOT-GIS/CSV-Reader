@@ -40,21 +40,29 @@ require([
 
 		text = evt.target.result;
 
-		graphicsLayer = csvArcGis.csvToGraphicsLayer(text, ',', null, null, null, null, null, {
-			id: evt.target.file.name
-		});
+		try {
+			graphicsLayer = csvArcGis.csvToGraphicsLayer(text, ',', null, null, null, null, null, {
+				id: evt.target.file.name
+			});
 
-		symbol = new SimpleMarkerSymbol();
-		// Set the symbol to a randomly generated color.
-		symbol.setColor(String(getRandomInt(0, 0xffffff)));
-		symbol.setStyle(symbolStyles[getRandomInt(0, symbolStyles.length)]);
-		renderer = new SimpleRenderer(symbol);
-		infoTemplate = new InfoTemplate("Imported Feature", "${*}");
+			symbol = new SimpleMarkerSymbol();
+			// Set the symbol to a randomly generated color.
+			symbol.setColor(String(getRandomInt(0, 0xffffff)));
+			symbol.setStyle(symbolStyles[getRandomInt(0, symbolStyles.length)]);
+			renderer = new SimpleRenderer(symbol);
+			infoTemplate = new InfoTemplate("Imported Feature", "${*}");
 
-		graphicsLayer.setRenderer(renderer);
-		graphicsLayer.setInfoTemplate(infoTemplate);
+			graphicsLayer.setRenderer(renderer);
+			graphicsLayer.setInfoTemplate(infoTemplate);
 
-		map.addLayer(graphicsLayer);
+			map.addLayer(graphicsLayer);
+		} catch (e) {
+			if (e instanceof TypeError) {
+				window.alert(e.message);
+			} else {
+				throw e;
+			}
+		}
 
 	}
 

@@ -1,14 +1,20 @@
 ﻿/*global define*/
 /*jslint browser:true*/
 define(["dojo/_base/declare", "dojo/Evented"], function (declare, Evented) {
+	/**
+	 * @exports layerList
+	 */
 	"use strict";
 	var LayerList, LayerListItem;
 
+	/** @class
+	 */
 	LayerListItem = declare([Evented], {
 		domNode: null,
 		checkbox: null,
 		label: null,
 		layer: null,
+		/** @constructs */
 		constructor: function (layer) {
 			var self = this;
 			this.layer = layer;
@@ -34,8 +40,11 @@ define(["dojo/_base/declare", "dojo/Evented"], function (declare, Evented) {
 		}
 	});
 
+	/** @class
+	 */
 	LayerList = declare(Evented, {
 		domNode: null,
+		/** @constructs */
 		constructor: function (map, domNode) {
 			var graphicsLayerList;
 

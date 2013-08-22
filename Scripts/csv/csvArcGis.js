@@ -1,7 +1,7 @@
 ﻿/*global define*/
 /*jslint white:true*/
 define([
-	"csv",
+	"./main",
 	"esri/graphic",
 	"esri/layers/GraphicsLayer"
 ], function (CSV, Graphic, GraphicsLayer) {

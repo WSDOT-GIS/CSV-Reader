@@ -1,6 +1,6 @@
 ﻿/*global define*/
 /*jslint browser:true, regexp:true*/
-define(["csv"], function (CSV) {
+define(["./main"], function (CSV) {
 
 	"use strict";
 

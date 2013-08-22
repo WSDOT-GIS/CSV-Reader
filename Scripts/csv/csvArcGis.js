@@ -8,7 +8,8 @@ define([
 	"use strict";
 
 	/** Converts a value into a number (if it is not already).
-	*/
+	 * @param value
+	 */
 	function getNumber(value) {
 		var output;
 		if (typeof value === "number") {
@@ -25,14 +26,14 @@ define([
 	}
 
 	/** Converts an object into a point feature.
-	@param {Object} object
-	@param {String} xName
-	@param {String} yName
-	@param {Object} [spatialReference]
-	@param {String} [zName]
-	@param {String} [mName]
-	@returns {esri/Graphic}
-	*/
+	 * @param {Object} object
+	 * @param {string} xName
+	 * @param {string} yName
+	 * @param {Object} [spatialReference]
+	 * @param {string} [zName]
+	 * @param {string} [mName]
+	 * @returns {esri/Graphic}
+	 */
 	function objectToPointFeature(object, xName, yName, spatialReference, zName, mName) {
 		var feature, name;
 
@@ -73,7 +74,7 @@ define([
 	}
 
 	/** Gets the likely X and Y field names from an object.
-	*/
+	 */
 	function getXYFieldNames(/*{Object}*/ o) {
 		var xRegex, yRegex, output, name;
 
@@ -107,16 +108,16 @@ define([
 
 	return {
 		/** Converts a CSV string into an array of point feature objects. (http://resources.arcgis.com/en/help/arcgis-rest-api/#/Feature_Object/02r3000000n8000000/)
-		@param {String} csv
-		@param {String} delimiter
-		@param {string} [xName] The field name that provides the X values. This can be omitted as long as the X field is named "X", "Long" or "Longitude" (case-insensitive).
-		@param {string} [yName] The field name that provides the Y values.This can be omitted as long as the Y field is named "Y", "Lat" or "Latitude" (case-insensitive).
-		@param {Object} [spatialReference] For values, see http://resources.arcgis.com/en/help/arcgis-rest-api/#/Geometry_Objects/02r3000000n1000000/
-		@param {String} [zName]
-		@param {String} [mName]
-		@param {Function} [perObjectFunction] A function that is called for each object. This function should take a single parameter: the object parsed from a row of CSV data.
-		@return {Array}
-		*/
+		 * @param {string} csv
+		 * @param {string} delimiter
+		 * @param {string} [xName] The field name that provides the X values. This can be omitted as long as the X field is named "X", "Long" or "Longitude" (case-insensitive).
+		 * @param {string} [yName] The field name that provides the Y values.This can be omitted as long as the Y field is named "Y", "Lat" or "Latitude" (case-insensitive).
+		 * @param {Object} [spatialReference] For values, see http://resources.arcgis.com/en/help/arcgis-rest-api/#/Geometry_Objects/02r3000000n1000000/
+		 * @param {string} [zName]
+		 * @param {string} [mName]
+		 * @param {Function} [perObjectFunction] A function that is called for each object. This function should take a single parameter: the object parsed from a row of CSV data.
+		 * @return {Array}
+		 */
 		csvToPointGraphics: function (csv, delimiter, xName, yName, spatialReference, zName, mName, perObjectFunction) {
 			var objects, output = [], i, l, o, fieldNames;
 			objects = CSV.toObjects(csv, delimiter);
@@ -143,16 +144,16 @@ define([
 			return output;
 		},
 		/** Converts a CSV string into an array of point feature objects. (http://resources.arcgis.com/en/help/arcgis-rest-api/#/Feature_Object/02r3000000n8000000/)
-		@param {String} csv
-		@param {String} delimiter
-		@param {string} [xName] The field name that provides the X values. This can be omitted as long as the X field is named "X", "Long" or "Longitude" (case-insensitive).
-		@param {string} [yName] The field name that provides the Y values.This can be omitted as long as the Y field is named "Y", "Lat" or "Latitude" (case-insensitive).
-		@param {Object} [spatialReference] For values, see http://resources.arcgis.com/en/help/arcgis-rest-api/#/Geometry_Objects/02r3000000n1000000/
-		@param {String} [zName]
-		@param {String} [mName]
-		@param {Object} [graphicsLayerOptions] Options to pass to the GraphicsLayer constructor. See https://developers.arcgis.com/en/javascript/jsapi/graphicslayer-amd.html#graphicslayer2
-		@return {esri/layers/GraphicsLayer}
-		*/
+		 * @param {string} csv
+		 * @param {string} delimiter
+		 * @param {string} [xName] The field name that provides the X values. This can be omitted as long as the X field is named "X", "Long" or "Longitude" (case-insensitive).
+		 * @param {string} [yName] The field name that provides the Y values.This can be omitted as long as the Y field is named "Y", "Lat" or "Latitude" (case-insensitive).
+		 * @param {Object} [spatialReference] For values, see http://resources.arcgis.com/en/help/arcgis-rest-api/#/Geometry_Objects/02r3000000n1000000/
+		 * @param {string} [zName]
+		 * @param {string} [mName]
+		 * @param {Object} [graphicsLayerOptions] Options to pass to the GraphicsLayer constructor. See https://developers.arcgis.com/en/javascript/jsapi/graphicslayer-amd.html#graphicslayer2
+		 * @return {esri/layers/GraphicsLayer}
+		 */
 		csvToGraphicsLayer: function (csv, delimiter, xName, yName, spatialReference, zName, mName, graphicsLayerOptions) {
 			var graphicsLayer;
 

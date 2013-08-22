@@ -4,9 +4,10 @@ define(["./main"], function (CSV) {
 
 	"use strict";
 
-	/**
-	@param {Array} An array of objects.  Each object in the array should have the same field names.
-	*/
+	/** Converts objects into an HTML Table element.
+	 * @param {Object[]} objects An array of objects.  Each object in the array should have the same field names.
+	 * @returns {HTMLTableElement} HTML table element.
+	 */
 	function objectsToHtmlTable(objects) {
 		var headers, row, table, tr, td, i, l, header, j, jl;
 
@@ -45,10 +46,10 @@ define(["./main"], function (CSV) {
 		return table;
 	}
 
-	/**Converts a CSV string into an HTML table.
-	@param {String} text A string of CSV text.
-	@returns {Element} HTML table element.
-	*/
+	/** Converts a CSV string into an HTML table.
+	 * @param {string} text A string of CSV text.
+	 * @returns {HTMLTableElement} HTML table element.
+	 */
 	function csvToHtmlTable(/*String*/ text) {
 		var csv, table, row, i, il, j, jl, tableElement, lastRow, header;
 		if (text) {

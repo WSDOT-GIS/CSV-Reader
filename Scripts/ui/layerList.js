@@ -1,5 +1,8 @@
 ﻿/*global define*/
 /*jslint browser:true*/
+
+/** {@link https://developers.arcgis.com/en/javascript/jsapi/map-amd.html | esri/map} */
+
 define(["dojo/_base/declare", "dojo/Evented"], function (declare, Evented) {
 	/**
 	 * @exports layerList
@@ -7,7 +10,8 @@ define(["dojo/_base/declare", "dojo/Evented"], function (declare, Evented) {
 	"use strict";
 	var LayerList, LayerListItem;
 
-	/** @class
+	/** One of the list items in a LayerList.
+	 * @class
 	 */
 	LayerListItem = declare([Evented], {
 		domNode: null,
@@ -40,11 +44,16 @@ define(["dojo/_base/declare", "dojo/Evented"], function (declare, Evented) {
 		}
 	});
 
-	/** @class
+	/** A list of layers in a map.
+	 * @class
+	 * @alias module:layerList
 	 */
 	LayerList = declare(Evented, {
 		domNode: null,
-		/** @constructs */
+		/** 
+		 * @param {esri/map}
+		 * @constructs 
+		 */
 		constructor: function (map, domNode) {
 			var graphicsLayerList;
 

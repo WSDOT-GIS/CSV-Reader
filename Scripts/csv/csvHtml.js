@@ -5,7 +5,7 @@ define(["./main"], function (CSV) {
 	"use strict";
 
 	/** Converts objects into an HTML Table element.
-	 * @param {Object[]} objects An array of objects.  Each object in the array should have the same field names.
+	 * @param {Object.<string, *>[]} objects An array of objects.  Each object in the array should have the same field names.
 	 * @returns {HTMLTableElement} HTML table element.
 	 */
 	function objectsToHtmlTable(objects) {

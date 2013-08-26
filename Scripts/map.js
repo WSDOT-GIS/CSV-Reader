@@ -13,9 +13,10 @@ require([
 	var map, layerList;
 
 	/** Returns a random integer between min and max
-	Using Math.round() will give you a non-uniform distribution!
-	Function came from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-	*/
+	 * Using Math.round() will give you a non-uniform distribution!
+	 * Function came from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+	 * @returns {number}
+	 */
 	function getRandomInt(/**{number}*/ min, /**{number}*/ max) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	}

@@ -6,7 +6,7 @@ require(["csv/csvHtml"], function (CSV) {
 
 	// Check for the various File API support.
 	if (!(window.File && window.FileReader && window.FileList && window.Blob)) {
-		alert('The File APIs are not fully supported in this browser.');
+		window.alert('The File APIs are not fully supported in this browser.');
 		return;
 	}
 
@@ -32,7 +32,7 @@ require(["csv/csvHtml"], function (CSV) {
 		var file, files, reader, i, l;
 		files = evt.target.files; // FileList object
 
-		for (var i = 0, l = files.length; i < l; i += 1) {
+		for (i = 0, l = files.length; i < l; i += 1) {
 			file = files[i];
 			reader = new window.FileReader();
 			reader.addEventListener("load", handleFileLoad);

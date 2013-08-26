@@ -45,6 +45,7 @@
     <Content Include="Scripts\csv\main.js" />
     <Content Include="Scripts\index.js" />
     <Content Include="Scripts\map.js" />
+    <Content Include="Scripts\layerUtils\main.js" />
     <Content Include="Scripts\ui\layerList.js" />
     <Content Include="Style\index.css" />
   </ItemGroup>

@@ -39,21 +39,25 @@
 	<script>
 		(function () {
 			"use strict";
-			var url, re = /\/[^\/]+$/;
+			var url, dojoConfig, re = /\/[^\/]+$/;
 
 			url = re.test(location.href) ? location.href.replace(re, "/") : location.href;
 
-			var dojoConfig = {
+			dojoConfig = {
 				async: true,
 				parseOnLoad: true,
 				packages: [
 					{
 						name: "csv",
-						location: url + "Scripts/csv",
+						location: url + "Scripts/csv"
 					},
 					{
 						name: "ui",
 						location: url + "Scripts/ui"
+					},
+					{
+						name: "layerUtils",
+						location: url + "Scripts/layerUtils"
 					}
 				]
 			};

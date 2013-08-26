@@ -52,20 +52,22 @@ require([
 				throw e;
 			}
 		}
-
-		document.getElementById("file").value = null;
 	}
 
 	function handleFileSelect(evt) {
-		var file, files, reader;
+		var file, files, reader, i, l;
 		files = evt.target.files; // FileList object
-		file = files[0];
-		reader = new window.FileReader();
-		// Add the file as a property of the reader so its filename can be used as a layer id.
-		reader.file = file;
-		reader.onload = handleFileLoad;
 
-		reader.readAsText(file);
+		// Loop through all of the files. Create a reader for each and read the text.
+		for (i = 0, l = files.length; i < l; i += 1) {
+			file = files[i];
+			reader = new window.FileReader();
+			// Add the file as a property of the reader so its filename can be used as a layer id.
+			reader.file = file;
+			reader.onload = handleFileLoad;
+
+			reader.readAsText(file);
+		}
 	}
 
 	document.getElementById('file').addEventListener('change', handleFileSelect, false);

@@ -28,6 +28,11 @@ require([
 
 	layerList = new LayerList(map, "layerList");
 
+	/** Converts CSV content from a text file into a graphics layer.
+	 * @param {Event} evt
+	 * @param evt.target
+	 * @param {string} evt.target.result
+	 */
 	function handleFileLoad(evt) {
 		var text, graphicsLayer, symbol, renderer, infoTemplate, symbolStyles = ["circle", "square", "cross", "x", "diamond"];
 
@@ -54,6 +59,11 @@ require([
 		}
 	}
 
+	/** This functions handles the file selection event.
+	 * @param {Event} evt
+	 * @param evt.target
+	 * @param {FileList} evt.target.files List of the selected files.
+	 */
 	function handleFileSelect(evt) {
 		var file, files, reader, i, l;
 		files = evt.target.files; // FileList object
@@ -70,6 +80,7 @@ require([
 		}
 	}
 
+	// Adds the file select event handler.
 	document.getElementById('file').addEventListener('change', handleFileSelect, false);
 
 });

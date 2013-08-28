@@ -1,15 +1,31 @@
-﻿# CSV Reader #
+CSV Reader
+==========
 
-This is a sample appliation that reads a CSV table file and displays its contents as an HTML table.
+An [AMD] JavaScript library for parsing CSV. 
+A sample application is available [here](http://wsdot-gis.github.io/CSV-Reader-Demo/) ([source](https://github.com/wsdot-gis/CSV-Reader-Demo/)).
 
-[Try the application](http://wsdot-gis.github.io/CSV-Reader-Demo/)
+## Components ##
+
+### main.js ###
+This is the main module that contains the CSV parsing code.
+
+### csvArcGis.js ###
+This is intended for use with the [ArcGIS API for JavaScript]. Functions available for converting a CSV point coordinates and converting it into [Graphic objects](https://developers.arcgis.com/en/javascript/jsapi/graphic-amd.html).
+
+### csvHtml.js ###
+Contains functions for converting CSV to HTML tables.
+
+## Documentation ##
+The JavaScript files contain [JSDoc] comments. This is currently the only documentation available.
+
 
 ## Acknowledgements ##
 
 * [CSV Parsing code from StackOverflow] by [Kirtan]
-* [require.js] - used to load [AMD] modules.
 
+[ArcGIS API for JavaScript]:http://js.arcgis.com/
 [CSV Parsing code from StackOverflow]:http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
+[JSDoc]:http://usejsdoc.org/
 [Kirtan]:http://stackoverflow.com/users/83664/kirtan
 [require.js]:http://requirejs.org/
 [AMD]:https://github.com/amdjs/amdjs-api/wiki

@@ -1,9 +1,12 @@
 ﻿/*global define*/
 /*jslint white:true,regexp:true*/
+
+/** 
+ * A module for importing CSV.
+ * @module CSV-Reader
+ */
 define(function () {
-	/** A module for importing CSV.
-	 * @exports csv
-	 */
+
 
 	"use strict";
 
@@ -73,7 +76,7 @@ define(function () {
 
 			// We found a quoted value. When we capture
 			// this value, unescape any double quotes.
-			strMatchedValue = match[2].replace(/""/g,'"');
+			strMatchedValue = match[2].replace(/""/g, '"');
 
 		} else {
 
@@ -108,59 +111,6 @@ define(function () {
 		return o;
 	}
 
-	/** This will parse a delimited string into an array of arrays. The default delimiter is the comma, but this
-	 * can be overriden in the second argument.
-	 * @param {string} csvData The CSV data
-	 * @param {string} [delimiter] The CSV field delimiter. Defaults to comma if omitted.
-	 * @returns {Object[]} An array of objects. Each object will have the same properties.
-	 * @author http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
-	 */
-	function csvToObjects(csvData, delimiter) {
-		var re, data, match, valueInfo, headers, objects = [];
-		// Check to see if the delimiter is defined. If not,
-		// then default to comma.
-		delimiter = (delimiter || ",");
-
-		// Create a regular expression to parse the CSV values.
-		re = createRegexp(delimiter);
-
-		// Create an array to hold our data. Give the array
-		// a default empty first row.
-		data = null; //[[]];
-
-		// Create an array to hold our individual pattern
-		// matching groups.
-		match = null;
-
-
-		match = re.exec(csvData);
-
-		// Keep looping over the regular expression matches
-		// until we can no longer find a match.
-		while (match) {
-			valueInfo = new ValueInfo(match, delimiter);
-
-			if (valueInfo.isNewLine) {
-				if (!headers) {
-					headers = data;
-				} else {
-					objects.push(createObjectFromData(headers, data));
-				}
-				data = []; // data.push([]);
-			} else if (!data) {
-				data = [];
-			}
-
-			// Now that we have our value string, let's add
-			// it to the data array.
-			data.push(valueInfo.value);
-			match = re.exec(csvData);
-		}
-
-		// Return the parsed data.
-		return objects;
-	}
-
 	/** Removes the last row from an array of arrays if it is empty.
 	 * @param {Array[]} array An array containing other Arrays.
 	 */
@@ -177,59 +127,113 @@ define(function () {
 	}
 
 
-	/**
-	 * This will parse a delimited string into an array of arrays. The default delimiter is the comma, but this
-	 * can be overriden in the second argument.
-	 * @param {string} csvData The CSV data
-	 * @param {string} [delimiter=','] The CSV field delimiter.
-	 * @returns {String[][]}
-	 * @author http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
-	 */
-	function csvToArray(csvData, delimiter) {
-		var objPattern, arrData, arrMatches, valueInfo;
-		// Check to see if the delimiter is defined. If not,
-		// then default to comma.
-		delimiter = (delimiter || ",");
-
-		// Create a regular expression to parse the CSV values.
-		objPattern = createRegexp(delimiter);
-
-		// Create an array to hold our data. Give the array
-		// a default empty first row.
-		arrData = [[]];
-
-		// Create an array to hold our individual pattern
-		// matching groups.
-		arrMatches = null;
 
 
-		arrMatches = objPattern.exec(csvData);
+	/** @alias CSV-Reader */
+	return {
+		/**
+		 * This will parse a delimited string into an array of arrays. The default delimiter is the comma, but this
+		 * can be overriden in the second argument.
+		 * @param {string} csvData The CSV data
+		 * @param {string} [delimiter=','] The CSV field delimiter.
+		 * @returns {Array.<string[]>}
+		 * @static
+		 * @author http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
+		 */
+		toArray: function (csvData, delimiter) {
+			var objPattern, arrData, arrMatches, valueInfo;
+			// Check to see if the delimiter is defined. If not,
+			// then default to comma.
+			delimiter = (delimiter || ",");
 
-		// Keep looping over the regular expression matches
-		// until we can no longer find a match.
-		while (arrMatches) {
-			valueInfo = new ValueInfo(arrMatches, delimiter);
+			// Create a regular expression to parse the CSV values.
+			objPattern = createRegexp(delimiter);
 
-			if (valueInfo.isNewLine) {
-				arrData.push([]);
+			// Create an array to hold our data. Give the array
+			// a default empty first row.
+			arrData = [[]];
+
+			// Create an array to hold our individual pattern
+			// matching groups.
+			arrMatches = null;
+
+
+			arrMatches = objPattern.exec(csvData);
+
+			// Keep looping over the regular expression matches
+			// until we can no longer find a match.
+			while (arrMatches) {
+				valueInfo = new ValueInfo(arrMatches, delimiter);
+
+				if (valueInfo.isNewLine) {
+					arrData.push([]);
+				}
+
+				// Now that we have our value string, let's add
+				// it to the data array.
+				arrData[arrData.length - 1].push(valueInfo.value);
+				arrMatches = objPattern.exec(csvData);
 			}
 
-			// Now that we have our value string, let's add
-			// it to the data array.
-			arrData[arrData.length - 1].push(valueInfo.value);
-			arrMatches = objPattern.exec(csvData);
+			// Check the last line for an empty row.
+			removeEmptyRow(arrData);
+
+			// Return the parsed data.
+			return (arrData);
+		},
+		/** This will parse a delimited string into an array of arrays. The default delimiter is the comma, but this
+		 * can be overriden in the second argument.
+		 * @param {string} csvData The CSV data
+		 * @param {string} [delimiter=','] The CSV field delimiter. Defaults to comma if omitted.
+		 * @returns {Object[]} An array of objects. Each object will have the same properties.
+		 * @static
+		 * @author http://stackoverflow.com/questions/1293147/javascript-code-to-parse-csv-data
+		 */
+		toObjects: function (csvData, delimiter) {
+			var re, data, match, valueInfo, headers, objects = [];
+			// Check to see if the delimiter is defined. If not,
+			// then default to comma.
+			delimiter = (delimiter || ",");
+
+			// Create a regular expression to parse the CSV values.
+			re = createRegexp(delimiter);
+
+			// Create an array to hold our data. Give the array
+			// a default empty first row.
+			data = null; //[[]];
+
+			// Create an array to hold our individual pattern
+			// matching groups.
+			match = null;
+
+
+			match = re.exec(csvData);
+
+			// Keep looping over the regular expression matches
+			// until we can no longer find a match.
+			while (match) {
+				valueInfo = new ValueInfo(match, delimiter);
+
+				if (valueInfo.isNewLine) {
+					if (!headers) {
+						headers = data;
+					} else {
+						objects.push(createObjectFromData(headers, data));
+					}
+					data = []; // data.push([]);
+				} else if (!data) {
+					data = [];
+				}
+
+				// Now that we have our value string, let's add
+				// it to the data array.
+				data.push(valueInfo.value);
+				match = re.exec(csvData);
+			}
+
+			// Return the parsed data.
+			return objects;
 		}
-
-		// Check the last line for an empty row.
-		removeEmptyRow(arrData);
-
-		// Return the parsed data.
-		return (arrData);
-	}
-
-	return {
-		toArray: csvToArray,
-		toObjects: csvToObjects
 	};
 
 });

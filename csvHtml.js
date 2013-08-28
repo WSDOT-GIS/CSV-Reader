@@ -1,11 +1,17 @@
 ﻿/*global define*/
 /*jslint browser:true, regexp:true*/
-define(["./main"], function (CSV) {
+
+/** 
+ * @module csvHtml
+ */
+define([
+	"./main"
+], function (CSV) {
 
 	"use strict";
 
 	/** Converts objects into an HTML Table element.
-	 * @param {Object.<string, *>[]} objects An array of objects.  Each object in the array should have the same field names.
+	 * @param {Array<Object.<string, *>>} objects An array of objects.  Each object in the array should have the same field names.
 	 * @returns {HTMLTableElement} HTML table element.
 	 */
 	function objectsToHtmlTable(objects) {
@@ -50,7 +56,7 @@ define(["./main"], function (CSV) {
 	 * @param {string} text A string of CSV text.
 	 * @returns {HTMLTableElement} HTML table element.
 	 */
-	function csvToHtmlTable(/*String*/ text) {
+	function csvToHtmlTable(text) {
 		var csv, table, row, i, il, j, jl, tableElement, lastRow, header;
 		if (text) {
 

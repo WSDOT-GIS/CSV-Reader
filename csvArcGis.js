@@ -1,11 +1,18 @@
 ﻿/*global define*/
 /*jslint white:true*/
+
+/**
+ * A module for converting CSV to ArcGIS JS API Graphics.
+ * @module CSV-Reader/arcGis
+ */
 define([
 	"./main",
 	"esri/graphic",
 	"esri/layers/GraphicsLayer"
 ], function (CSV, Graphic, GraphicsLayer) {
+
 	"use strict";
+
 
 	/** Converts a value into a number (if it is not already).
 	 * @param value
@@ -106,17 +113,29 @@ define([
 
 	}
 
+	/** A feature object from the ArcGIS REST API.
+	 * @external Feature
+	 * @see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/#/Feature_Object/02r3000000n8000000/}
+	 */
+
+	/** A layer containing graphics in a map.
+	 * @external esri/layers/GraphicsLayer
+	 * @see {@link https://developers.arcgis.com/en/javascript/jsapi/graphicslayer-amd.html}
+	 */
+
+	/** @alias csv/arcGis */
 	return {
-		/** Converts a CSV string into an array of point feature objects. (http://resources.arcgis.com/en/help/arcgis-rest-api/#/Feature_Object/02r3000000n8000000/)
+		/** Converts a CSV string into an array of point feature objects.
 		 * @param {string} csv
 		 * @param {string} delimiter
 		 * @param {string} [xName] The field name that provides the X values. This can be omitted as long as the X field is named "X", "Long" or "Longitude" (case-insensitive).
 		 * @param {string} [yName] The field name that provides the Y values.This can be omitted as long as the Y field is named "Y", "Lat" or "Latitude" (case-insensitive).
-		 * @param {Object} [spatialReference] For values, see http://resources.arcgis.com/en/help/arcgis-rest-api/#/Geometry_Objects/02r3000000n1000000/
+		 * @param {Object} [spatialReference] For values, see {@link http://resources.arcgis.com/en/help/arcgis-rest-api/#/Geometry_Objects/02r3000000n1000000/ this page}.
 		 * @param {string} [zName]
 		 * @param {string} [mName]
 		 * @param {Function} [perObjectFunction] A function that is called for each object. This function should take a single parameter: the object parsed from a row of CSV data.
-		 * @return {Array}
+		 * @static
+		 * @return {Array.<external:Feature>}
 		 */
 		csvToPointGraphics: function (csv, delimiter, xName, yName, spatialReference, zName, mName, perObjectFunction) {
 			var objects, output = [], i, l, o, fieldNames;
@@ -152,7 +171,8 @@ define([
 		 * @param {string} [zName]
 		 * @param {string} [mName]
 		 * @param {Object} [graphicsLayerOptions] Options to pass to the GraphicsLayer constructor. See https://developers.arcgis.com/en/javascript/jsapi/graphicslayer-amd.html#graphicslayer2
-		 * @return {esri/layers/GraphicsLayer}
+		 * @static
+		 * @return {external:esri/layers/GraphicsLayer}
 		 */
 		csvToGraphicsLayer: function (csv, delimiter, xName, yName, spatialReference, zName, mName, graphicsLayerOptions) {
 			var graphicsLayer;

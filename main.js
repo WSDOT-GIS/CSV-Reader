@@ -6,8 +6,6 @@
  * @module CSV-Reader
  */
 define(function () {
-
-
 	"use strict";
 
 	/** Creates a Regexp (regular expression) that will match CSV content.
@@ -25,7 +23,6 @@ define(function () {
 		} else if (delimiter.length > 1) {
 			throw new TypeError("The delimiter must contain at least one character.");
 		}
-
 
 		// Create a regular expression to parse the CSV values.
 		//var re = /(\,|\r?\n|\r|^)(?:"([^"]*(?:""[^"]*)*)"|([^"\,\r\n]*))/gi;
@@ -65,7 +62,6 @@ define(function () {
 			// Since we have reached a new row of data, add an empty row to our data array.
 			isNewLine = true;
 		}
-
 
 		// Now that we have our delimiter out of the way,
 		// let's check to see which kind of value we
@@ -119,15 +115,14 @@ define(function () {
 		if (array && array.length) {
 			lastRow = array[array.length - 1];
 			/*jslint eqeq:true*/
+			/*jshint eqnull:true*/
 			if ((!lastRow.length) || (lastRow.length === 1 && lastRow[0] == null)) { // The == (instead of ===) is intentional, checking for null AND undefined.
 				array.pop();
 			}
+			/*jshint eqnull:false*/
 			/*jslint eqeq:false*/
 		}
 	}
-
-
-
 
 	/** @alias CSV-Reader */
 	return {
@@ -156,7 +151,6 @@ define(function () {
 			// Create an array to hold our individual pattern
 			// matching groups.
 			arrMatches = null;
-
 
 			arrMatches = objPattern.exec(csvData);
 
@@ -205,7 +199,6 @@ define(function () {
 			// Create an array to hold our individual pattern
 			// matching groups.
 			match = null;
-
 
 			match = re.exec(csvData);
 
